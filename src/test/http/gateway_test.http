@@ -49,4 +49,5 @@ test message
 
 
 ###
+GET http://localhost:8080/service-publication-microservice/h2
 
