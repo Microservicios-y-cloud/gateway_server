@@ -29,7 +29,8 @@ public class SecurityConfig {
                                                  //TODO check all routes 
                                                 .pathMatchers(HttpMethod.GET, "/service-publication-microservice/myservice/**")
                                                 .hasRole("ADMIN")
-
+                                                .pathMatchers(HttpMethod.GET, "/service-publication-microservice/services/**")
+                                                .hasRole("CUSTOMER")
                                                 // For any other request, the user must be authenticated
                                                 .anyExchange().authenticated())
                                 // Configures JWT to properly process Keycloak tokens
