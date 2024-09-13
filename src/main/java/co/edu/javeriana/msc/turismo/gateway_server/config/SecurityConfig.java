@@ -12,32 +12,35 @@ import org.springframework.web.cors.CorsConfiguration;
 @EnableWebFluxSecurity
 public class SecurityConfig {
 
-        @Bean
-        SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
-                return http
-                                .cors(cors -> cors
-                                                .configurationSource(request -> new CorsConfiguration()
-                                                                .applyPermitDefaultValues()))
-                                .csrf(csrf -> csrf
-                                                .disable())
-                                .authorizeExchange(exchange -> exchange
-                                                // Allow authentication endpoint
-                                                .pathMatchers(HttpMethod.POST, "/keycloak-server/realms/myrealm/protocol/openid-connect/token")
-                                                .permitAll()
-                                                
-                                                 // Allow access to simple microservice to certain roles
-                                                 //TODO check all routes 
-                                                .pathMatchers(HttpMethod.GET, "/service-publication-microservice/myservice/**")
-                                                .hasRole("ADMIN")
-                                                .pathMatchers(HttpMethod.GET, "/service-publication-microservice/services/**")
-                                                .hasRole("CUSTOMER")
-                                                // For any other request, the user must be authenticated
-                                                .anyExchange().authenticated())
-                                // Configures JWT to properly process Keycloak tokens
-                                .oauth2ResourceServer(oauth2 -> oauth2
-                                                .jwt(jwt -> jwt.jwtAuthenticationConverter(
-                                                                new KeycloakJwtAuthenticationConverter())))
-                                .build();
-        }
+    @Bean
+    SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
+        return http
+                .cors(cors -> cors
+                        .configurationSource(request -> new CorsConfiguration()
+                                .applyPermitDefaultValues()))
+                .csrf(csrf -> csrf
+                        .disable())
+                .authorizeExchange(exchange -> exchange
+                        // Allow authentication endpoint
+                        .pathMatchers(HttpMethod.POST, "/keycloak-server/realms/myrealm/protocol/openid-connect/token")
+                        .permitAll()
+
+                        // Allow access to simple microservice to certain roles
+                        //TODO check all routes
+                        .pathMatchers(HttpMethod.GET, "/service-publication-microservice/myservice/**")
+                        .hasRole("ADMIN")
+                        .pathMatchers(HttpMethod.GET, "/service-publication-microservice/services/**")
+                        .hasRole("CUSTOMER")
+                        .pathMatchers(HttpMethod.GET, "/service-publication-microservice/graphql/**")
+                        .hasRole("CUSTOMER")
+
+                        // For any other request, the user must be authenticated
+                        .anyExchange().authenticated())
+                // Configures JWT to properly process Keycloak tokens
+                .oauth2ResourceServer(oauth2 -> oauth2
+                        .jwt(jwt -> jwt.jwtAuthenticationConverter(
+                                new KeycloakJwtAuthenticationConverter())))
+                .build();
+    }
 
 }
