@@ -15,7 +15,7 @@ spring:
         # Indicates the URL of the Keycloak endpoint that provides the keys to verify JWT tokens
         # This is used within the subnet where the microservices are deployed
         # This URL does not need to be accessible from outside
-          jwk-set-uri: http://localhost:9000/realms/myrealm/protocol/openid-connect/certs
+          jwk-set-uri: http://localhost:9000/realms/ecommerce/protocol/openid-connect/certs
 server:
   port: 8080
 

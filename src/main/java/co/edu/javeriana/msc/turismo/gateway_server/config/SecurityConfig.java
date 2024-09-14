@@ -22,7 +22,7 @@ public class SecurityConfig {
                         .disable())
                 .authorizeExchange(exchange -> exchange
                         // Allow authentication endpoint
-                        .pathMatchers(HttpMethod.POST, "/keycloak-server/realms/myrealm/protocol/openid-connect/token")
+                        .pathMatchers(HttpMethod.POST, "/keycloak-server/realms/ecommerce/protocol/openid-connect/token")
                         .permitAll()
 
                         // Allow access to simple microservice to certain roles
