@@ -30,17 +30,9 @@ public class SecurityConfig {
                         .pathMatchers(HttpMethod.GET, "/service-publication-microservice/myservice/**")
                         .hasRole("ADMIN")
                         .pathMatchers(HttpMethod.GET, "/service-publication-microservice/services/**")
-                        .hasRole("CUSTOMER")
+                        .hasAnyRole("CUSTOMER", "SUPPLIER")
                         .pathMatchers(HttpMethod.GET, "/service-publication-microservice/graphql/**")
                         .hasRole("CUSTOMER")
-                        .pathMatchers(HttpMethod.GET, "/service-publication-microservice/services/location/**")
-                        .hasRole("SUPPLIER")
-                        .pathMatchers(HttpMethod.GET, "/service-publication-microservice/services/foodType/**")
-                        .hasRole("SUPPLIER")
-                        .pathMatchers(HttpMethod.GET, "/service-publication-microservice/services/AccommodationType/**")
-                        .hasRole("SUPPLIER")
-                        .pathMatchers(HttpMethod.GET, "/service-publication-microservice/services/TransportType/**")
-                        .hasRole("SUPPLIER")
 
 
                         // For any other request, the user must be authenticated
