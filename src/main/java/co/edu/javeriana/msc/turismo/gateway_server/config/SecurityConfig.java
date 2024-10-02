@@ -56,14 +56,14 @@ public class SecurityConfig {
                         .hasAnyRole("CUSTOMER")
 
                         //Service rating microservice
-                        .pathMatchers(HttpMethod.GET, "/service-rating-microservice/questions/**")
-                        .hasAnyRole("CUSTOMER")
-                        .pathMatchers(HttpMethod.POST, "/service-rating-microservice/questions/**")
-                        .hasAnyRole("CUSTOMER")
-                        .pathMatchers(HttpMethod.PUT, "/service-rating-microservice/questions/**")
-                        .hasAnyRole("CUSTOMER")
-                        .pathMatchers(HttpMethod.DELETE, "/service-rating-microservice/questions/**")
-                        .hasAnyRole("CUSTOMER")
+                        .pathMatchers(HttpMethod.GET, "/service-rating-microservice/questions/")
+                        .hasAnyRole("CUSTOMER", "SUPPLIER")
+                        .pathMatchers(HttpMethod.POST, "/service-rating-microservice/questions/")
+                        .hasAnyRole("CUSTOMER", "SUPPLIER")
+                        .pathMatchers(HttpMethod.PUT, "/service-rating-microservice/questions/")
+                        .hasAnyRole("CUSTOMER", "SUPPLIER")
+                        .pathMatchers(HttpMethod.DELETE, "/service-rating-microservice/questions/")
+                        .hasAnyRole("CUSTOMER", "SUPPLIER")
                         // For any other request, the user must be authenticated
                         .anyExchange().authenticated())
                 // Configures JWT to properly process Keycloak tokens
