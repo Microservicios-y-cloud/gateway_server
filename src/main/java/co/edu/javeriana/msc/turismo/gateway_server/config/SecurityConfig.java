@@ -27,11 +27,9 @@ public class SecurityConfig {
 
                         // Allow access to simple microservice to certain roles
                         //TODO check all routes
-                        .pathMatchers(HttpMethod.GET, "/service-publication-microservice/myservice/**")
-                        .hasRole("ADMIN")
-                        .pathMatchers(HttpMethod.GET, "/service-publication-microservice/services/**")
+                        .pathMatchers(HttpMethod.GET, "/service-query-microservice/services/**")
                         .hasAnyRole("CUSTOMER", "SUPPLIER")
-                        .pathMatchers(HttpMethod.GET, "/service-publication-microservice/graphql/**")
+                        .pathMatchers(HttpMethod.GET, "/service-query-microservice/graphql/**")
                         .hasRole("CUSTOMER")
 
 
