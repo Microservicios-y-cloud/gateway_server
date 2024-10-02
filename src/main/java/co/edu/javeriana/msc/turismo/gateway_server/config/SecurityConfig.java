@@ -32,7 +32,38 @@ public class SecurityConfig {
                         .pathMatchers(HttpMethod.GET, "/service-query-microservice/graphql/**")
                         .hasRole("CUSTOMER")
 
+                        // Order management microservice
+                        .pathMatchers(HttpMethod.GET, "/order-management-microservice/cart/**")
+                        .hasAnyRole("CUSTOMER")
+                        .pathMatchers(HttpMethod.POST, "/order-management-microservice/cart/**")
+                        .hasAnyRole("CUSTOMER")
+                        .pathMatchers(HttpMethod.PUT, "/order-management-microservice/cart/**")
+                        .hasAnyRole("CUSTOMER")
+                        .pathMatchers(HttpMethod.DELETE, "/order-management-microservice/cart/**")
+                        .hasAnyRole("CUSTOMER")
 
+                        .pathMatchers(HttpMethod.GET, "/order-management-microservice/order/**")
+                        .hasAnyRole("CUSTOMER")
+                        .pathMatchers(HttpMethod.POST, "/order-management-microservice/order/**")
+                        .hasAnyRole("CUSTOMER")
+                        .pathMatchers(HttpMethod.PUT, "/order-management-microservice/order/**")
+                        .hasAnyRole("CUSTOMER")
+                        .pathMatchers(HttpMethod.DELETE, "/order-management-microservice/order/**")
+                        .hasAnyRole("CUSTOMER")
+
+                        //Payment microservice
+                        .pathMatchers(HttpMethod.POST, "/payment-microservice/payments")
+                        .hasAnyRole("CUSTOMER")
+
+                        //Service rating microservice
+                        .pathMatchers(HttpMethod.GET, "/service-rating-microservice/questions/**")
+                        .hasAnyRole("CUSTOMER")
+                        .pathMatchers(HttpMethod.POST, "/service-rating-microservice/questions/**")
+                        .hasAnyRole("CUSTOMER")
+                        .pathMatchers(HttpMethod.PUT, "/service-rating-microservice/questions/**")
+                        .hasAnyRole("CUSTOMER")
+                        .pathMatchers(HttpMethod.DELETE, "/service-rating-microservice/questions/**")
+                        .hasAnyRole("CUSTOMER")
                         // For any other request, the user must be authenticated
                         .anyExchange().authenticated())
                 // Configures JWT to properly process Keycloak tokens
