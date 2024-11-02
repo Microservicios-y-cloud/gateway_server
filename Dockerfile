@@ -1,19 +1,12 @@
+FROM maven:3.8.5-openjdk-17 AS builder
+WORKDIR /app/source
+COPY . .
+RUN mvn clean package
+
 # Imagen para java, el proyecto tiene la version 17
 FROM openjdk:17-jdk-alpine
-
-#Localizacion del .jar que genera el proyecto
-ARG JAR_FILE=target/*.jar
-
-# Copia el jar al principio del proyecto y lo llama app.jar
-#El nombre del .jar se genera de acuerdo a las etiquetas <artifactId> y <version> del POM
-COPY ./target/gateway_server-0.0.1-SNAPSHOT.jar app.jar
-
+COPY --from=builder /app/source/target/*.jar app.jar
+EXPOSE 8080
+ADD start.sh .
 # Comando de ejecucion
-ENTRYPOINT ["java", "-jar", "app.jar"]
-
-#Intrucciones para correr docker    :
-    #Limpiar /target                :   mvn clean
-    #Crear /target                  :   mvn install
-    #Construccion del contenedor    :   docker build -t gateway-server .
-    #Correr un contenedor           :   docker run -p 8080:8080 gateway-server
-
+ENTRYPOINT ["/start.sh"]
