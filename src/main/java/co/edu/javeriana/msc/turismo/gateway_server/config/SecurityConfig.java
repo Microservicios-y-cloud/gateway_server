@@ -31,7 +31,8 @@ public class SecurityConfig {
                         .hasAnyRole("CUSTOMER", "SUPPLIER")
                         .pathMatchers(HttpMethod.GET, "/service-query-microservice/graphql/**")
                         .hasRole("CUSTOMER")
-
+                        .pathMatchers(HttpMethod.GET, "/service-publication-microservice/services/**")
+                        .hasRole("SUPPLIER")
                         // Order management microservice
                         .pathMatchers(HttpMethod.GET, "/order-management-microservice/cart/**")
                         .hasAnyRole("CUSTOMER")
