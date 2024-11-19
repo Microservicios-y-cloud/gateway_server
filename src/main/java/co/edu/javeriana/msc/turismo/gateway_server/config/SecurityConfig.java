@@ -16,8 +16,23 @@ public class SecurityConfig {
     SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         return http
                 .cors(cors -> cors
-                        .configurationSource(request -> new CorsConfiguration()
-                                .applyPermitDefaultValues()))
+                .configurationSource(request -> {
+                    CorsConfiguration corsCfg = new CorsConfiguration();
+
+                    // Permitir cualquier origen (puedes especificar los necesarios)
+                    corsCfg.addAllowedOriginPattern("*");
+
+                    // Permitir todos los métodos HTTP (o especificar los necesarios)
+                    corsCfg.addAllowedMethod(CorsConfiguration.ALL);
+
+                    // Permitir encabezados necesarios para CORS (puedes ajustar según tus necesidades)
+                    corsCfg.addAllowedHeader("*");
+
+                    // Permitir credenciales si es necesario (e.g., cookies o headers de autenticación)
+                    corsCfg.setAllowCredentials(true);
+
+                    return corsCfg;
+                }))
                 .csrf(csrf -> csrf
                         .disable())
                 .authorizeExchange(exchange -> exchange
