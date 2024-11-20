@@ -68,7 +68,7 @@ public class SecurityConfig {
                         .hasAnyRole("CUSTOMER")
 
                         //Payment microservice
-                        .pathMatchers(HttpMethod.POST, "/payment-microservice/payments")
+                        .pathMatchers(HttpMethod.POST, "/payment-microservice/payments/**")
                         .hasAnyRole("CUSTOMER")
 
                         //Service rating microservice
